@@ -1,24 +1,44 @@
 const { registerUser, loginUser } = require("../services/serviceform");
 
-// register
+// Register
 const register = async (req, res) => {
+
   try {
     const userData = req.body;
-    const newUser = await registerUser(userData); 
-    res.status(201).send({ message: "User registered successfully", user: newUser });
+
+    const newUser = await registerUser(userData);
+    res.status(201).send({
+      message: "User registered successfully",
+
+      user: {
+        _id: newUser._id,
+        email: newUser.email,
+      },
+    });
+
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
 };
-// login
+
+// Login
 const login = async (req, res) => {
   try {
-    const { gmail, password } = req.body;
-    const user = await loginUser(gmail, password);  // Call service to log in user
-    res.send({ message: "Login successful", user });
+    const { email, password } = req.body;
+
+    const user = await loginUser(email, password);
+
+    res.status(200).send({
+      message: "Login successful",
+      
+      user: {
+        _id: user._id,
+        email: user.email,
+      },
+    });
   } catch (error) {
-    res.status(401).send({ message: "Email or password is incorrect" });
+    res.status(401).send({ message: error.message });
   }
 };
 
-module.exports = { register, login };
+module.exports = { register, login };

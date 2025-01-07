@@ -1,6 +1,7 @@
 const express = require("express");
 const emailController = require("../controller/emailcontroller");
 const router = express.Router();
+
 // send mail
 router.post("/send-email", emailController.triggerEmail);
 // otp send

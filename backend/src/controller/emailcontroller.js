@@ -1,6 +1,7 @@
 const emailService = require("../services/emailservice");
 const userModel = require("../modals/usermodals");
 const OTPModal = require("../modals/OTPModal");
+
 // send  mail
 const triggerEmail = async (req, res) => {
   try {

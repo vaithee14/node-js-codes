@@ -20,10 +20,10 @@
 const express = require("express");
 const app = express();
 const database = require("./src/config/db");
-const userRouter = require("./src/route/userrouter");
-const productRouter = require("./src/route/routerproducts");
-const userRouters = require("./src/route/userformrouter");
-const emailRouter = require("./src/route/emailroute");
+const userRouter = require("./src/route/userrouter"); //adduser
+const productRouter = require("./src/route/routerproducts"); //add products
+const userRouters = require("./src/route/userformrouter"); //regiter and login
+const emailRouter = require("./src/route/emailroute"); //Mail
 
 // console.log(userRoutes);
 
@@ -40,6 +40,7 @@ app.use("/users", userRouters);
 
 //  User Email
 app.use("/api", emailRouter);
+
 
 database.on("open", () => {
   app.listen(3030, () => {
