@@ -6,14 +6,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: uuidv4,
   },
-  email: {
+  gmail: {
     type: String,
     required: true,
+    unique: true, 
   },
   password: {
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  }
 });
 
 const Usermodal = mongoose.model("Usermodal", userSchema);

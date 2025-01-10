@@ -14,6 +14,11 @@ const sendMessage = async () => {
 
   const mailOptions = {
     from: "svaithi2004@gmail.com",
+
+
+
+
+    
     to: "susmi605@gmail.com",
     subject: "Hello! Welcome to a New Year",
     text: `Hello,

@@ -1,40 +1,29 @@
 const bcrypt = require("bcryptjs");
-const User = require("../modals/usermodalsform");
+const Usermodal = require("../modals/usermodalsform");
+const jwt = require("jsonwebtoken");
 
-// Register a new user
-const registerUser = async (userData) => {
-  const existingUser = await User.findOne({ email: userData.email });
-  if (existingUser) {
-    throw new Error("User with this email already exists");
-  }
+// Register User
+const registerUser = async ({ gmail, password, name }) => {
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Hash the password
-  const hashedPassword = await bcrypt.hash(userData.password, 10);
-
-  // Save the user with the hashed password
-  userData.password = hashedPassword;
-  const user = await User.create(userData);
-
-  return user;
+  const newUser = new Usermodal({ gmail, password: hashedPassword, name });
+  
+  await newUser.save();
+  return newUser;
 };
 
-// Login a user
-const loginUser = async (email, password) => {
-  const user = await User.findOne({ email: email });
+// Login User
+const loginUser = async (gmail, password) => {
+  const user = await Usermodal.findOne({ gmail });
   if (!user) {
     throw new Error("User not found");
   }
-
-  // Compare the provided password with the hashed password
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
     throw new Error("Invalid credentials");
   }
-
   return user;
 };
 
-module.exports = {
-  registerUser,
-  loginUser,
-};
+module.exports = { registerUser, loginUser };
+
