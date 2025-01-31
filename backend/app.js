@@ -24,10 +24,12 @@ const userRouter = require("./src/route/userrouter"); //adduser
 const productRouter = require("./src/route/routerproducts"); //add products
 const userRouters = require("./src/route/userformrouter"); //regiter and login
 const emailRouter = require("./src/route/emailroute"); //Mail
-
+var cors = require('cors')
 // console.log(userRoutes);
 
 app.use(express.json());
+
+app.use(cors())
 
 // users
 app.use("/user", userRouter);
